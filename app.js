@@ -7,8 +7,10 @@ const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const morgan = require("morgan");
 const path = require("path");
 const config = require("./src/config/config.js");
+const brandRoutes = require("./src/routes/brands.js");
 
 // Connect with MongoDb
 mongoose
@@ -17,7 +19,7 @@ mongoose
   .catch((error) => console.error("Mongodb connection error: ", error));
 
 const app = express();
-
+app.use(morgan("dev"));
 // Security middleware
 app.use(helmet());
 app.use(cors());
@@ -35,7 +37,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 });
 app.use(limiter);
 
-//TODO: USE SERVER ROUTING HERE
+// Routing middlewares
+app.use("/api/v1/brands", brandRoutes);
 
 // Static asset  serving
 app.set("etag", false);
