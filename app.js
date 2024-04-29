@@ -11,6 +11,7 @@ const morgan = require("morgan");
 const path = require("path");
 const config = require("./src/config/config.js");
 const brandRoutes = require("./src/routes/brands.js");
+const categoryRoutes = require("./src/routes/categories.js");
 
 // Connect with MongoDb
 mongoose
@@ -39,6 +40,7 @@ app.use(limiter);
 
 // Routing middlewares
 app.use("/api/v1/brands", brandRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 
 // Static asset  serving
 app.set("etag", false);
