@@ -3,9 +3,14 @@ const express = require("express");
 const brandControllers = require("../controllers/brands");
 const router = express.Router();
 
-// set routes for brands
+// Define routes for handling products related request
 
-// Get all brands
+/*
+ * Route for retrieve all brands
+ * GET  /brands
+ * @handler getBrands - Controller function to handle the request
+ * @since 28 April 2024
+ */
 router.get("/", brandControllers.getBrands);
 
 module.exports = router;

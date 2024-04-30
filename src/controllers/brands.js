@@ -5,17 +5,18 @@ const brandServices = require("../services/brands");
 // Module scaffolding
 const brandsController = {};
 
+/*
+ * Handle the request to retrieve all brands form the database
+ * @returns {Promise<Array>} Array of brands
+ * @throws {Error} If fetching brands fails
+ * @since 28 April 2024
+ */
 brandsController.getBrands = async (req, res) => {
   try {
     const brands = await brandServices.getAllBrands();
-    // Send successful response with all brands
     res.status(200).json({ status: "success", data: brands });
   } catch (error) {
-    console.error("Error on get brand list controller: ", error);
-    res.status(500).json({
-      status: "failed",
-      message: "Error getting brands",
-    });
+    res.status(500).json({ status: "error", message: error.message });
   }
 };
 
