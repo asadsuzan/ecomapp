@@ -4,16 +4,18 @@ const categoryServices = require("../services/categories");
 // Module scaffolding
 const categoryControllers = {};
 
-// Get Categories
+/*
+ * Handle the request to retrieve all categories
+ * @params {Object} req - The request object
+ * @params {Object} res - The response object
+ * @since 28 April 2024
+ */
 categoryControllers.getCategories = async (req, res) => {
   try {
     const categories = await categoryServices.getAllCategories();
     res.status(200).json({ status: "Success", data: categories });
   } catch (error) {
-    console.error("Error getting categories: ", error);
-    res
-      .status(500)
-      .json({ status: "failed", message: "Error getting categories" });
+    res.status(500).json({ status: "error", message: error.message });
   }
 };
 

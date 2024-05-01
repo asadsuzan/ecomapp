@@ -4,14 +4,18 @@ const categoryModel = require("../models/Categories");
 // Module scaffolding
 const categoryServices = {};
 
-// Get all categories list
+/*
+ * Retrieves all categories form the database
+ * @returns {Promise<Array>} Array of categories
+ * @throws {Error} If fetching categories fails
+ * @since 28 April 2024
+ */
 categoryServices.getAllCategories = async () => {
   try {
     const categories = await categoryModel.find({});
     return categories;
   } catch (error) {
-    console.error("Error getting category list :", error);
-    throw error; // Re-throw the error for handling in the controller
+    throw new Error("Could not fetch categories: " + error.message);
   }
 };
 

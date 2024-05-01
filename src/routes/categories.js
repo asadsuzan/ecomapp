@@ -3,9 +3,14 @@ const express = require("express");
 const categoryControllers = require("../controllers/categories");
 const router = express.Router();
 
-// set routes for categories
+// Define routes for handling category related request
 
-// Get all categories
+/*
+ * Route for retrieve all categories
+ * GET  /categories
+ * @handler getCategories - Controller function to handle the request
+ * @since 28 April 2024
+ */
 router.get("/", categoryControllers.getCategories);
 
 module.exports = router;
