@@ -39,10 +39,14 @@ const productSchema = new Schema(
     remark: { type: String, required: true },
 
     // ID of the category associated with the product (required)
-    category_id: { type: Schema.Types.ObjectId, required: true },
+    categoryID: {
+      type: Schema.Types.ObjectId,
+      ref: "categories",
+      required: true,
+    },
 
     // ID of the brand associated with the product (required)
-    brand_id: { type: Schema.Types.ObjectId, required: true },
+    brandID: { type: Schema.Types.ObjectId, ref: "brands", required: true },
   },
   {
     // Automatically add timestamps (createdAt, updatedAt)
