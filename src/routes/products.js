@@ -22,4 +22,13 @@ router.get("/", productControllers.getProducts);
  */
 router.get("/:productId", productControllers.getProductById);
 
+/*
+ * Route for retrieve  products by category
+ * GET  /products/category/:categoryID
+ * @params {string} :categoryID - The ID of the category to retrieve
+ * @handler getProductsByCategory - Controller function to handle the request
+ * @since 2 May 2024
+ */
+router.get("/category/:categoryId", productControllers.getProductsByCategory);
+
 module.exports = router;
