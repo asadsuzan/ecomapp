@@ -39,4 +39,13 @@ router.get("/category/:categoryId", productControllers.getProductsByCategory);
  * @since 2 May 2024
  */
 router.get("/brands/:brandId", productControllers.getProductsByBrands);
+
+/*
+ * Route for retrieve  products by remark status
+ * GET  /products/remark/:remarkStatus
+ * @params {string} :remarkStatus - The remark status of the products to retrieve
+ * @handler getProductsByRemark - Controller function to handle the request
+ * @since 3 May 2024
+ */
+router.get("/remark/:remarkStatus", productControllers.getProductsByRemark);
 module.exports = router;

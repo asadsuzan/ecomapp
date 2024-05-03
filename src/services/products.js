@@ -125,4 +125,36 @@ productServices.getProductsBrand = async (brandId) => {
     throw new Error("Could not fetch products : " + error);
   }
 };
+
+/*
+ * Retrieves products by remarks form the  database
+ * @params {string} remark  - The remark status <new/top/best/popular/...>
+ * @returns {Promise<Array>} The products Array
+ * @throws {Error} If fetching products fails
+ * @since 3 May 2024
+ */
+
+productServices.getProductsByRemark = async (remarkStatus) => {
+  try {
+    // Query products based on the provided remark status
+    const products = await productModel.aggregate([
+      // Match products with the provided remark status
+      { $match: { remark: remarkStatus } },
+
+      // Project to exclude unnecessary field
+      {
+        $project: {
+          createdAt: 0,
+          updatedAt: 0,
+        },
+      },
+    ]);
+
+    // Return the retrieved products
+
+    return products;
+  } catch (error) {
+    throw new Error("Could not fetch products : " + error);
+  }
+};
 module.exports = productServices;
