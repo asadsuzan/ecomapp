@@ -31,4 +31,12 @@ router.get("/:productId", productControllers.getProductById);
  */
 router.get("/category/:categoryId", productControllers.getProductsByCategory);
 
+/*
+ * Route for retrieve  products by brand
+ * GET  /products/brand/:brandId
+ * @params {string} :brandId - The ID of the brand to retrieve
+ * @handler getProductsByBrands - Controller function to handle the request
+ * @since 2 May 2024
+ */
+router.get("/brands/:brandId", productControllers.getProductsByBrands);
 module.exports = router;

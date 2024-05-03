@@ -108,4 +108,46 @@ productController.getProductsByCategory = async (req, res) => {
     }
   }
 };
+
+/*
+ * Handle the request to retrieve  products by brand
+ * @params {Object} req - The request object
+ * @params {Object} res - The response object
+ * @since 3 May 2024
+ */
+productController.getProductsByBrands = async (req, res) => {
+  try {
+    // Extract the brandId from request params
+    const { brandId } = req.params;
+
+    // check if not valid brandId
+    if (!mongoose.Types.ObjectId.isValid(brandId)) {
+      throw new ValidationError("Invalid brand Id");
+    }
+
+    // Retrieve products by brandId from the product service
+    const products = await productServices.getProductsBrand(brandId);
+
+    // Check if no products found with the brand Id
+    if (!products.length) {
+      throw new NotFoundError("No Products found for this brand");
+    }
+
+    // Send successful response with retrieved products
+    res.status(200).json({ status: "success", data: products });
+  } catch (error) {
+    // Handle validation error
+    if (error instanceof ValidationError) {
+      res.status(400).json({ status: "error", message: error.message });
+    }
+    // Handle NotFound Error
+    else if (error instanceof NotFoundError) {
+      res.status(404).json({ status: "error", message: error.message });
+    }
+    // Handle others errors
+    else {
+      res.status(500).json({ status: "error", message: error.message });
+    }
+  }
+};
 module.exports = productController;
