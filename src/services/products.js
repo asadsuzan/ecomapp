@@ -157,4 +157,28 @@ productServices.getProductsByRemark = async (remarkStatus) => {
     throw new Error("Could not fetch products : " + error);
   }
 };
+
+/*
+ * Retrieves products by search term the  database
+ * @params {string} keyword  - The search term
+ * @returns {Promise<Array>} The products Array
+ * @throws {Error} If fetching products fails
+ * @since 4 May 2024
+ */
+
+productServices.getProductsBySearchTerm = async (searchTerm) => {
+  try {
+    // Case insensitive  search
+    const regex = new RegExp(searchTerm, "i");
+
+    // Query products based on the provided keyword
+    const products = await productModel.find({ $text: { $search: searchTerm } });
+
+    // Return the retrieved products
+
+    return products;
+  } catch (error) {
+    throw new Error("Could not fetch products : " + error);
+  }
+};
 module.exports = productServices;

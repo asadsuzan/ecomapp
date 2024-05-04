@@ -10,7 +10,7 @@ const productSchema = new Schema(
     title: { type: String, required: true },
 
     // Short description of the product (required)
-    short_des: { type: String, required: true },
+    shortDes: { type: String, required: true },
 
     // Price of the product (required)
     price: { type: Number, required: true },
@@ -56,6 +56,9 @@ const productSchema = new Schema(
     versionKey: false,
   }
 );
+
+// Create index for title and short description
+productSchema.index({ title: "text", shortDes: "text" }, { background: true });
 
 // Create a model for the Product collection
 const Product = mongoose.model("Products", productSchema);

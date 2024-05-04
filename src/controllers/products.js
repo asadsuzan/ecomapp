@@ -192,4 +192,46 @@ productController.getProductsByRemark = async (req, res) => {
     }
   }
 };
+
+/*
+ * Handle the request to retrieve  products by search terms
+ * @params {Object} req - The request object
+ * @params {Object} res - The response object
+ * @since 4 May 2024
+ */
+productController.getProductsBySearchTerm = async (req, res) => {
+  try {
+    // Extract the search  term   from request params
+    const { searchTerm } = req.params;
+
+    // check if not remark status
+    if (!searchTerm) {
+      throw new ValidationError("Include search terms is required");
+    }
+
+    // Retrieve products by the search terms  from the product service
+    const products = await productServices.getProductsBySearchTerm(searchTerm);
+
+    // Check if no products found with the search terms
+    if (!products.length) {
+      throw new NotFoundError("No Products found for this search term");
+    }
+
+    // Send successful response with retrideved products
+    res.status(200).json({ status: "success", data: products });
+  } catch (error) {
+    // Handle validation error
+    if (error instanceof ValidationError) {
+      res.status(400).json({ status: "error", message: error.message });
+    }
+    // Handle NotFound Error
+    else if (error instanceof NotFoundError) {
+      res.status(404).json({ status: "error", message: error.message });
+    }
+    // Handle others errors
+    else {
+      res.status(500).json({ status: "error", message: error.message });
+    }
+  }
+};
 module.exports = productController;

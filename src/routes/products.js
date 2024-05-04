@@ -48,4 +48,14 @@ router.get("/brands/:brandId", productControllers.getProductsByBrands);
  * @since 3 May 2024
  */
 router.get("/remark/:remarkStatus", productControllers.getProductsByRemark);
+
+/*
+ * Route for retrieve  products by search terms
+ * GET  /products/search/:searchTerm
+ * @params {string} :keyword - The text of the products to retrieve
+ * @handler getProductsBySearchTerm - Controller function to handle the request
+ * @since 4 May 2024
+ */
+router.get("/search/:searchTerm", productControllers.getProductsBySearchTerm);
+
 module.exports = router;
